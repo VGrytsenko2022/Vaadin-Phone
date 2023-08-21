@@ -1,6 +1,5 @@
 <<<<<<< HEAD
 # Vaadin-Phone
-vphone
 =======
 # VPhone
 
