@@ -1,7 +1,9 @@
 package ua.vg.vp.views.phone;
 
 import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H6;
@@ -21,6 +23,7 @@ import ua.vg.vp.views.MainLayout;
 @Route(value = "Phone", layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
 @Uses(Icon.class)
+@JsModule("./js/browserCall.js")
 public class PhoneView extends Composite<VerticalLayout> {
     private EventType buttonCallMode;
     private final PhoneComponent phone = new PhoneComponent();
@@ -67,6 +70,7 @@ public class PhoneView extends Composite<VerticalLayout> {
 
 
     public PhoneView() {
+
         getContent().setHeightFull();
         getContent().setWidthFull();
         HorizontalLayout layoutRow = new HorizontalLayout();
@@ -296,6 +300,7 @@ public class PhoneView extends Composite<VerticalLayout> {
                 buttonCall.setText("<MC>");
                 buttonCall.setTooltipText("Make call");
             } else if (changeEvent.getEventType() == EventType.INCOMING_CALL) {
+                UI.getCurrent().getPage().executeJs("window.isCallInProgress = true;");
                 buttonCallMode = changeEvent.getEventType();
                 buttonCall.setEnabled(true);
                 buttonCall.setAutofocus(true);
@@ -306,6 +311,7 @@ public class PhoneView extends Composite<VerticalLayout> {
                 buttonEndCall.setTooltipText("End the call");
 
             } else if (changeEvent.getEventType() == EventType.CALLING) {
+                UI.getCurrent().getPage().executeJs("window.isCallInProgress = true;");
                 buttonCallMode = changeEvent.getEventType();
                 buttonCall.setEnabled(false);
                 buttonCall.setText("<AC>");
@@ -315,6 +321,7 @@ public class PhoneView extends Composite<VerticalLayout> {
                 buttonEndCall.setText("<EC>");
                 buttonEndCall.setTooltipText("End the call");
             } else if (changeEvent.getEventType() == EventType.ANSWERED) {
+                UI.getCurrent().getPage().executeJs("window.isCallInProgress = true;");
                 buttonCallMode = changeEvent.getEventType();
 
                 buttonCall.setEnabled(false);
@@ -334,6 +341,7 @@ public class PhoneView extends Composite<VerticalLayout> {
                 buttonMuteVideo.setTooltipText("Mute/Unmute video");
 
             } else if (changeEvent.getEventType() == EventType.ENDED || changeEvent.getEventType() == EventType.FAILED) {
+                UI.getCurrent().getPage().executeJs("window.isCallInProgress = false;");
                 buttonCallMode = changeEvent.getEventType();
                 dialTo.setValue("");
                 buttonCall.setEnabled(true);

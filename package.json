@@ -100,6 +100,7 @@
   },
   "vaadin": {
     "dependencies": {
+      "@VGrytsenko2022/vphone": "1.0.1",
       "@polymer/polymer": "3.5.1",
       "@vaadin/a11y-base": "24.1.5",
       "@vaadin/accordion": "24.1.5",
