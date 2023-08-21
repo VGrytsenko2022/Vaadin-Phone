@@ -8,6 +8,7 @@ import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H6;
 import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -17,7 +18,6 @@ import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 import ua.vg.vp.util.*;
 import ua.vg.vp.views.MainLayout;
-
 
 @PageTitle("Phone")
 @Route(value = "Phone", layout = MainLayout.class)
@@ -81,12 +81,10 @@ public class PhoneView extends Composite<VerticalLayout> {
         layoutRow.setFlexGrow(1.0, layoutColumn2);
         layoutColumn2.setHeightFull();
         layoutColumn2.setWidth(null);
-        Div image = new Div();
-        layoutColumn2.getStyle().set("border", "1px solid DarkOrange");
-        layoutColumn2.setFlexGrow(1.0, image);
-        image.setWidthFull();
         VideoComponent video = new VideoComponent();
-        image.add(video);
+        layoutColumn2.getStyle().set("border", "1px solid DarkOrange");
+        layoutColumn2.setFlexGrow(1.0, video);
+        layoutColumn2.setHorizontalComponentAlignment(FlexComponent.Alignment.CENTER, video);
         VerticalLayout layoutColumn3 = new VerticalLayout();
         layoutColumn3.addClassName(Gap.XSMALL);
         layoutColumn3.setHeightFull();
@@ -135,7 +133,7 @@ public class PhoneView extends Composite<VerticalLayout> {
         buttonEndCall.setEnabled(false);
         getContent().add(layoutRow);
         layoutRow.add(layoutColumn2);
-        layoutColumn2.add(image);
+        layoutColumn2.add(video);
         layoutRow.add(layoutColumn3);
         layoutColumn3.add(h6);
         layoutColumn3.add(dialTo);

@@ -23,7 +23,6 @@ public class PhoneComponent extends com.vaadin.flow.component.Component {
         getElement().setAttribute("autoplay", "true");
         setProperty("199", "123456", "vgbc.pp.ua");
         activate();
-
     }
     public PhoneComponent(String webrtcUser, String webrtcPassword, String domain) {
         setProperty(webrtcUser,webrtcPassword,domain);
