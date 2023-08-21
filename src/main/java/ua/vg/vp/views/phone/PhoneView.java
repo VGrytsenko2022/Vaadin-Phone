@@ -3,10 +3,9 @@ package ua.vg.vp.views.phone;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.Uses;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H6;
 import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.messages.MessageList;
-import com.vaadin.flow.component.messages.MessageListItem;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -14,160 +13,360 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import ua.vg.vp.util.*;
 import ua.vg.vp.views.MainLayout;
+
 
 @PageTitle("Phone")
 @Route(value = "Phone", layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
 @Uses(Icon.class)
 public class PhoneView extends Composite<VerticalLayout> {
+    private EventType buttonCallMode;
+    private final PhoneComponent phone = new PhoneComponent();
 
-    private HorizontalLayout layoutRow = new HorizontalLayout();
+    private final H6 h6 = new H6();
 
-    private VerticalLayout layoutColumn2 = new VerticalLayout();
+    private final TextField dialTo = new TextField();
 
-    private MessageList messageList = new MessageList();
+    private final Button buttonMuteVideo = new Button();
 
-    private VerticalLayout layoutColumn3 = new VerticalLayout();
+    private final Button buttonHold = new Button();
 
-    private H6 h6 = new H6();
+    private final Button buttonPutinPidoras = new Button();
 
-    private TextField textField = new TextField();
+    private final Button button1 = new Button();
 
-    private HorizontalLayout layoutRow2 = new HorizontalLayout();
+    private final Button button2 = new Button();
 
-    private Button buttonSecondary = new Button();
+    private final Button button3 = new Button();
 
-    private Button buttonSecondary2 = new Button();
+    private final Button button4 = new Button();
 
-    private Button buttonSecondary3 = new Button();
+    private final Button button5 = new Button();
 
-    private HorizontalLayout layoutRow3 = new HorizontalLayout();
+    private final Button button6 = new Button();
 
-    private Button buttonSecondary4 = new Button();
+    private final Button button7 = new Button();
 
-    private Button buttonSecondary5 = new Button();
+    private final Button button8 = new Button();
 
-    private Button buttonSecondary6 = new Button();
+    private final Button button9 = new Button();
 
-    private HorizontalLayout layoutRow4 = new HorizontalLayout();
+    private final Button buttonStar = new Button();
 
-    private Button buttonSecondary7 = new Button();
+    private final Button button0 = new Button();
 
-    private Button buttonSecondary8 = new Button();
+    private final Button buttonSharp = new Button();
 
-    private Button buttonSecondary9 = new Button();
+    private final Button buttonCall = new Button();
 
-    private HorizontalLayout layoutRow5 = new HorizontalLayout();
+    private final Button buttonMuteAudio = new Button();
 
-    private Button buttonSecondary10 = new Button();
+    private final Button buttonEndCall = new Button();
 
-    private Button buttonSecondary11 = new Button();
-
-    private Button buttonSecondary12 = new Button();
-
-    private HorizontalLayout layoutRow6 = new HorizontalLayout();
-
-    private Button buttonSecondary13 = new Button();
-
-    private Button buttonSecondary14 = new Button();
-
-    private Button buttonSecondary15 = new Button();
-
-    private HorizontalLayout layoutRow7 = new HorizontalLayout();
-
-    private Button buttonSecondary16 = new Button();
-
-    private Button buttonSecondary17 = new Button();
-
-    private Button buttonSecondary18 = new Button();
 
     public PhoneView() {
         getContent().setHeightFull();
         getContent().setWidthFull();
+        HorizontalLayout layoutRow = new HorizontalLayout();
         getContent().setFlexGrow(1.0, layoutRow);
         layoutRow.setWidthFull();
         layoutRow.addClassName(Gap.MEDIUM);
+        VerticalLayout layoutColumn2 = new VerticalLayout();
         layoutRow.setFlexGrow(1.0, layoutColumn2);
         layoutColumn2.setHeightFull();
         layoutColumn2.setWidth(null);
-        layoutColumn2.setFlexGrow(1.0, messageList);
-        messageList.setWidthFull();
-        setMessageListSampleData(messageList);
+        Div image = new Div();
+        layoutColumn2.setFlexGrow(1.0, image);
+        image.setWidthFull();
+        VideoComponent video = new VideoComponent();
+        image.add(video);
+        VerticalLayout layoutColumn3 = new VerticalLayout();
         layoutColumn3.addClassName(Gap.XSMALL);
         layoutColumn3.setHeightFull();
         layoutRow.setFlexGrow(1.0, layoutColumn3);
         layoutColumn3.setWidth(null);
         h6.setText("STATUS");
         h6.setWidthFull();
-        textField.setLabel("Dial to");
-        textField.setWidthFull();
+        dialTo.setLabel("Dial to");
+        dialTo.setRequiredIndicatorVisible(true);
+        dialTo.setAllowedCharPattern("[0-9()+]");
+        dialTo.setWidthFull();
+        HorizontalLayout layoutRow2 = new HorizontalLayout();
         layoutRow2.addClassName(Gap.MEDIUM);
-        buttonSecondary.setText("V");
-        buttonSecondary2.setText("H");
-        buttonSecondary3.setText("P");
+        buttonMuteVideo.setText("V");
+        buttonMuteVideo.setEnabled(false);
+        buttonHold.setText("H");
+        buttonHold.setEnabled(false);
+        buttonPutinPidoras.setText("P");
+        HorizontalLayout layoutRow3 = new HorizontalLayout();
         layoutRow3.addClassName(Gap.MEDIUM);
-        buttonSecondary4.setText("1");
-        buttonSecondary5.setText("2");
-        buttonSecondary6.setText("3");
+        button1.setText("1");
+        button2.setText("2");
+        button3.setText("3");
+        HorizontalLayout layoutRow4 = new HorizontalLayout();
         layoutRow4.addClassName(Gap.MEDIUM);
-        buttonSecondary7.setText("4");
-        buttonSecondary8.setText("5");
-        buttonSecondary9.setText("6");
+        button4.setText("4");
+        button5.setText("5");
+        button6.setText("6");
+        HorizontalLayout layoutRow5 = new HorizontalLayout();
         layoutRow5.addClassName(Gap.MEDIUM);
-        buttonSecondary10.setText("7");
-        buttonSecondary11.setText("8");
-        buttonSecondary12.setText("0");
+        button7.setText("7");
+        button8.setText("8");
+        button9.setText("9");
+        HorizontalLayout layoutRow6 = new HorizontalLayout();
         layoutRow6.addClassName(Gap.MEDIUM);
-        buttonSecondary13.setText("*");
-        buttonSecondary14.setText("0");
-        buttonSecondary15.setText("#");
+        buttonStar.setText("*");
+        button0.setText("0");
+        buttonSharp.setText("#");
+        HorizontalLayout layoutRow7 = new HorizontalLayout();
         layoutRow7.addClassName(Gap.MEDIUM);
-        buttonSecondary16.setText("C");
-        buttonSecondary17.setText("M");
-        buttonSecondary18.setText("E");
+        buttonCall.setText("D");
+        buttonCall.setEnabled(false);
+        buttonMuteAudio.setText("M");
+        buttonMuteAudio.setEnabled(false);
+        buttonEndCall.setText("E");
+        buttonEndCall.setEnabled(false);
         getContent().add(layoutRow);
         layoutRow.add(layoutColumn2);
-        layoutColumn2.add(messageList);
+        layoutColumn2.add(image);
         layoutRow.add(layoutColumn3);
         layoutColumn3.add(h6);
-        layoutColumn3.add(textField);
+        layoutColumn3.add(dialTo);
         layoutColumn3.add(layoutRow2);
-        layoutRow2.add(buttonSecondary);
-        layoutRow2.add(buttonSecondary2);
-        layoutRow2.add(buttonSecondary3);
+        layoutRow2.add(buttonMuteVideo);
+        layoutRow2.add(buttonHold);
+        layoutRow2.add(buttonPutinPidoras);
         layoutColumn3.add(layoutRow3);
-        layoutRow3.add(buttonSecondary4);
-        layoutRow3.add(buttonSecondary5);
-        layoutRow3.add(buttonSecondary6);
+        layoutRow3.add(button1);
+        layoutRow3.add(button2);
+        layoutRow3.add(button3);
         layoutColumn3.add(layoutRow4);
-        layoutRow4.add(buttonSecondary7);
-        layoutRow4.add(buttonSecondary8);
-        layoutRow4.add(buttonSecondary9);
+        layoutRow4.add(button4);
+        layoutRow4.add(button5);
+        layoutRow4.add(button6);
         layoutColumn3.add(layoutRow5);
-        layoutRow5.add(buttonSecondary10);
-        layoutRow5.add(buttonSecondary11);
-        layoutRow5.add(buttonSecondary12);
+        layoutRow5.add(button7);
+        layoutRow5.add(button8);
+        layoutRow5.add(button9);
         layoutColumn3.add(layoutRow6);
-        layoutRow6.add(buttonSecondary13);
-        layoutRow6.add(buttonSecondary14);
-        layoutRow6.add(buttonSecondary15);
+        layoutRow6.add(buttonStar);
+        layoutRow6.add(button0);
+        layoutRow6.add(buttonSharp);
         layoutColumn3.add(layoutRow7);
-        layoutRow7.add(buttonSecondary16);
-        layoutRow7.add(buttonSecondary17);
-        layoutRow7.add(buttonSecondary18);
+        layoutRow7.add(buttonCall);
+        layoutRow7.add(buttonMuteAudio);
+        layoutRow7.add(buttonEndCall);
+        initSoundComponents();
+        getContent().add(phone);
+
+        setButtonFunctions();
     }
 
-    private void setMessageListSampleData(MessageList messageList) {
-        MessageListItem message1 = new MessageListItem("Nature does not hurry, yet everything gets accomplished.",
-                LocalDateTime.now().minusDays(1).toInstant(ZoneOffset.UTC), "Matt Mambo");
-        message1.setUserColorIndex(1);
-        MessageListItem message2 = new MessageListItem(
-                "Using your talent, hobby or profession in a way that makes you contribute with something good to this world is truly the way to go.",
-                LocalDateTime.now().minusMinutes(55).toInstant(ZoneOffset.UTC), "Linsey Listy");
-        message2.setUserColorIndex(2);
-        messageList.setItems(message1, message2);
+    private void setButtonFunctions() {
+        buttonPutinPidoras.addClickListener(buttonClickEvent -> dialTo.setValue("Путин хуйло!!! Кацапы пидорасы!!! Как вы заебали твари ёбаные"));
+
+        buttonMuteVideo.addClickListener(buttonClickEvent -> {
+            if (buttonCallMode == EventType.ANSWERED) {
+                phone.muteVideo();
+            }
+        });
+
+        buttonHold.addClickListener(buttonClickEvent -> {
+            if (buttonCallMode == EventType.ANSWERED) {
+                phone.localHold();
+            }
+        });
+
+        buttonMuteAudio.addClickListener(buttonClickEvent -> {
+            if (buttonCallMode == EventType.ANSWERED) {
+                phone.muteAudio();
+            }
+        });
+
+        button0.addClickListener(buttonClickEvent -> {
+            if (buttonCallMode != EventType.ANSWERED) {
+                dialTo.setValue(dialTo.getValue() + "0");
+            } else {
+                phone.callSendDTMF("0");
+            }
+        });
+
+        button1.addClickListener(buttonClickEvent -> {
+            if (buttonCallMode != EventType.ANSWERED) {
+                dialTo.setValue(dialTo.getValue() + "1");
+            } else {
+                phone.callSendDTMF("1");
+            }
+        });
+
+        button2.addClickListener(buttonClickEvent -> {
+            if (buttonCallMode != EventType.ANSWERED) {
+                dialTo.setValue(dialTo.getValue() + "2");
+            } else {
+                phone.callSendDTMF("2");
+            }
+        });
+
+        button3.addClickListener(buttonClickEvent -> {
+            if (buttonCallMode != EventType.ANSWERED) {
+                dialTo.setValue(dialTo.getValue() + "3");
+            } else {
+                phone.callSendDTMF("3");
+            }
+        });
+
+        button4.addClickListener(buttonClickEvent -> {
+            if (buttonCallMode != EventType.ANSWERED) {
+                dialTo.setValue(dialTo.getValue() + "4");
+            } else {
+                phone.callSendDTMF("4");
+            }
+        });
+
+        button5.addClickListener(buttonClickEvent -> {
+            if (buttonCallMode != EventType.ANSWERED) {
+                dialTo.setValue(dialTo.getValue() + "5");
+            } else {
+                phone.callSendDTMF("5");
+            }
+        });
+
+        button6.addClickListener(buttonClickEvent -> {
+            if (buttonCallMode != EventType.ANSWERED) {
+                dialTo.setValue(dialTo.getValue() + "6");
+            } else {
+                phone.callSendDTMF("6");
+            }
+        });
+
+        button7.addClickListener(buttonClickEvent -> {
+            if (buttonCallMode != EventType.ANSWERED) {
+                dialTo.setValue(dialTo.getValue() + "7");
+            } else {
+                phone.callSendDTMF("7");
+            }
+        });
+
+        button8.addClickListener(buttonClickEvent -> {
+            if (buttonCallMode != EventType.ANSWERED) {
+                dialTo.setValue(dialTo.getValue() + "8");
+            } else {
+                phone.callSendDTMF("8");
+            }
+        });
+
+        button9.addClickListener(buttonClickEvent -> {
+            if (buttonCallMode != EventType.ANSWERED) {
+                dialTo.setValue(dialTo.getValue() + "9");
+            } else {
+                phone.callSendDTMF("9");
+            }
+        });
+        buttonStar.addClickListener(buttonClickEvent -> {
+            if (buttonCallMode == EventType.ANSWERED) {
+                phone.callSendDTMF("*");
+            }
+        });
+
+        buttonSharp.addClickListener(buttonClickEvent -> {
+            if (buttonCallMode == EventType.ANSWERED) {
+                phone.callSendDTMF("#");
+            }
+        });
+
+        buttonCall.addClickListener(buttonClickEvent -> {
+            if (buttonCallMode == EventType.INCOMING_CALL) {
+                phone.answer();
+            } else {
+                phone.makeCall(dialTo.getValue());
+            }
+        });
+        buttonEndCall.addClickListener(buttonClickEvent -> {
+            if (buttonCallMode == EventType.INCOMING_CALL || buttonCallMode == EventType.ANSWERED || buttonCallMode == EventType.CALLING) {
+                phone.endCall();
+            }
+        });
+
+        phone.addChangeListener(changeEvent -> {
+            h6.setText(changeEvent.getEventValue());
+            if (changeEvent.getEventType() == EventType.UA_STATE && changeEvent.getEventValue().equalsIgnoreCase("registered")) {
+                buttonCall.setEnabled(true);
+                buttonCall.setText("<MC>");
+                buttonCall.setTooltipText("Make call");
+            } else if (changeEvent.getEventType() == EventType.INCOMING_CALL) {
+                buttonCallMode = changeEvent.getEventType();
+                buttonCall.setEnabled(true);
+                buttonCall.setAutofocus(true);
+                buttonCall.setText("<AC>");
+                buttonCall.setTooltipText("Answer the call");
+                buttonEndCall.setEnabled(true);
+                buttonEndCall.setText("<EC>");
+                buttonEndCall.setTooltipText("End the call");
+
+            } else if (changeEvent.getEventType() == EventType.CALLING) {
+                buttonCallMode = changeEvent.getEventType();
+                buttonCall.setEnabled(false);
+                buttonCall.setText("<AC>");
+                buttonCall.setTooltipText("Answer the call");
+                buttonEndCall.setEnabled(true);
+                buttonEndCall.setAutofocus(true);
+                buttonEndCall.setText("<EC>");
+                buttonEndCall.setTooltipText("End the call");
+            } else if (changeEvent.getEventType() == EventType.ANSWERED) {
+                buttonCallMode = changeEvent.getEventType();
+
+                buttonCall.setEnabled(false);
+                buttonCall.setText("<MC>");
+                buttonCall.setTooltipText("Make call");
+
+                buttonHold.setEnabled(true);
+                buttonHold.setText("<HC>");
+                buttonHold.setTooltipText("Hold/Unhold call");
+
+                buttonMuteAudio.setEnabled(true);
+                buttonMuteAudio.setText("<MA>");
+                buttonMuteAudio.setTooltipText("Mute/Unmute audio");
+
+                buttonMuteVideo.setEnabled(true);
+                buttonMuteVideo.setText("<MV>");
+                buttonMuteVideo.setTooltipText("Mute/Unmute video");
+
+            } else if (changeEvent.getEventType() == EventType.ENDED || changeEvent.getEventType() == EventType.FAILED) {
+                buttonCallMode = changeEvent.getEventType();
+                dialTo.setValue("");
+                buttonCall.setEnabled(true);
+                buttonCall.setText("<MC>");
+                buttonCall.setTooltipText("Make call");
+
+                buttonHold.setEnabled(false);
+                buttonHold.setText("<HC>");
+                buttonHold.setTooltipText("Hold/Unhold local channel");
+
+                buttonMuteAudio.setEnabled(false);
+                buttonMuteAudio.setText("<MA>");
+                buttonMuteAudio.setTooltipText("Mute/Unmute audio");
+
+                buttonMuteVideo.setEnabled(false);
+                buttonMuteVideo.setText("<MV>");
+                buttonMuteVideo.setTooltipText("Mute/Unmute audio");
+
+                buttonEndCall.setEnabled(false);
+                buttonEndCall.setText("<EC>");
+                buttonEndCall.setTooltipText("End the call");
+
+            }
+        });
     }
+private void initSoundComponents(){
+    RingToneComponent ringTone = new RingToneComponent();
+    getContent().add(ringTone);
+    RingBackToneComponent ringBackTone = new RingBackToneComponent();
+    getContent().add(ringBackTone);
+    DtmfToneComponent dtmfTone = new DtmfToneComponent();
+    getContent().add(dtmfTone);
+}
+
+
 }
