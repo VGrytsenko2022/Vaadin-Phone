@@ -6,7 +6,6 @@ package ua.vg.vp.util;
 
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.dependency.JsModule;
-import com.vaadin.flow.component.dependency.NpmPackage;
 
 
 /**
