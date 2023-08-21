@@ -82,6 +82,7 @@ public class PhoneView extends Composite<VerticalLayout> {
         layoutColumn2.setHeightFull();
         layoutColumn2.setWidth(null);
         Div image = new Div();
+        layoutColumn2.getStyle().set("border", "1px solid DarkOrange");
         layoutColumn2.setFlexGrow(1.0, image);
         image.setWidthFull();
         VideoComponent video = new VideoComponent();
