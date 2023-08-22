@@ -12,6 +12,7 @@ import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import org.vaadin.lineawesome.LineAwesomeIcon;
+import ua.vg.vp.views.about.AboutView;
 import ua.vg.vp.views.phone.PhoneView;
 
 /**
@@ -49,9 +50,8 @@ public class MainLayout extends AppLayout {
 
     private SideNav createNavigation() {
         SideNav nav = new SideNav();
-
         nav.addItem(new SideNavItem("Phone", PhoneView.class, LineAwesomeIcon.PHONE_ALT_SOLID.create()));
-
+        nav.addItem(new SideNavItem("About", AboutView.class, LineAwesomeIcon.FILE.create()));
         return nav;
     }
 

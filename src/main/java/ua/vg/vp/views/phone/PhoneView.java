@@ -69,6 +69,7 @@ public class PhoneView extends Composite<VerticalLayout> {
 
 
     public PhoneView() {
+
         getContent().setHeightFull();
         getContent().setWidthFull();
         HorizontalLayout layoutRow = new HorizontalLayout();
