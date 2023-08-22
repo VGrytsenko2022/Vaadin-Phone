@@ -64,15 +64,16 @@ public class PhoneComponent extends com.vaadin.flow.component.Component {
         UI.getCurrent().getPage().executeJs("makeCall($0)", dialNum);
     }
 
-    @ClientCallable
-    public void auEvent(EventType eventType,String event) {
-        fireEvent(new ChangeEvent(this, false, eventType, event));
-    }
+   // @ClientCallable
+  //  public void auEvent(EventType eventType,String event) {
+  //      fireEvent(new ChangeEvent(this, false, eventType, event));
+  //  }
 
+    @DomEvent("phone")
     public static class ChangeEvent extends ComponentEvent<PhoneComponent> {
         private final String event;
-        private final EventType eventType;
-        public ChangeEvent(PhoneComponent source, boolean fromClient, EventType eventType, String event) {
+        private final String eventType;
+        public ChangeEvent(PhoneComponent source, boolean fromClient, @EventData("event.detail.type") String eventType, @EventData("event.detail.phoneEvent") String event) {
             super(source, fromClient);
             this.event = event;
             this.eventType=eventType;
@@ -82,11 +83,11 @@ public class PhoneComponent extends com.vaadin.flow.component.Component {
             return event;
         }
         public EventType getEventType() {
-            return eventType;
+            return EventType.valueOf(eventType);
         }
     }
 
-    public void addChangeListener(ComponentEventListener<ChangeEvent> listener) {
+    public void addValueChangeListener(ComponentEventListener<ChangeEvent> listener) {
         addListener(ChangeEvent.class, listener);
     }
 }

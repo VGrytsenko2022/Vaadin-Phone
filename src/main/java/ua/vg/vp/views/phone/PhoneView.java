@@ -69,7 +69,6 @@ public class PhoneView extends Composite<VerticalLayout> {
 
 
     public PhoneView() {
-
         getContent().setHeightFull();
         getContent().setWidthFull();
         HorizontalLayout layoutRow = new HorizontalLayout();
@@ -291,7 +290,7 @@ public class PhoneView extends Composite<VerticalLayout> {
             }
         });
 
-        phone.addChangeListener(changeEvent -> {
+        phone.addValueChangeListener(changeEvent -> {
             h6.setText(changeEvent.getEventValue());
             if (changeEvent.getEventType() == EventType.UA_STATE && changeEvent.getEventValue().equalsIgnoreCase("registered")) {
                 buttonCall.setEnabled(true);

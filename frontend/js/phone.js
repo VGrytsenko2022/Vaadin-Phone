@@ -53,9 +53,16 @@ function hasGetUserMedia() {
 }
 
 if (!hasGetUserMedia()) {
-    component.$server.auEvent(EventType.GET_USER_MEDIA, "Get user media is not supported by your browser");
+    // component.$server.auEvent(EventType.GET_USER_MEDIA, "Get user media is not supported by your browser");
 
 }
+
+const event = new CustomEvent('phone', {
+    detail: {
+        type: EventType.UA_STATE,
+        phoneEvent: 'welcome',
+    }
+});
 
 // ======================================
 // Configure and activate your user agent
@@ -78,17 +85,21 @@ window.configureAndActivate = function () {
 // If user agent successfully or was not successfully registrated
 // ==============================================
     ua.on('connected', function (e) {
-        component.$server.auEvent(EventType.UA_STATE, "connected");
+        event.detail.type = EventType.UA_STATE;
+        event.detail.phoneEvent = 'connected';
+        component.dispatchEvent(event);
     });
 
     ua.on('registered', function (e) {
-
-        component.$server.auEvent(EventType.UA_STATE, "registered");
+        event.detail.type = EventType.UA_STATE;
+        event.detail.phoneEvent = 'registered';
+        component.dispatchEvent(event);
     });
 
     ua.on('registrationFailed', function (e) {
-
-        component.$server.auEvent(EventType.UA_STATE, "registration failed");
+        event.detail.type = EventType.UA_STATE;
+        event.detail.phoneEvent = 'registrationFailed';
+        component.dispatchEvent(event);
     });
 
 // ========================================
@@ -99,13 +110,19 @@ window.configureAndActivate = function () {
         bindSessionEvents(session);
         if (e.originator === "remote") {
             if (session.remote_identity.uri.user === inoutNumber) {
-                component.$server.auEvent(EventType.CALLING, "Calling..");
+                event.detail.type = EventType.CALLING;
+                event.detail.phoneEvent = 'Calling..';
+                component.dispatchEvent(event);
                 answer();
             } else {
-                component.$server.auEvent(EventType.INCOMING_CALL, "Incoming call from " + session.remote_identity.uri.user);
+                event.detail.type = EventType.INCOMING_CALL;
+                event.detail.phoneEvent = 'Incoming call from ' + session.remote_identity.uri.user;
+                component.dispatchEvent(event);
             }
         } else if (e.originator === "local") {
-            component.$server.auEvent(EventType.CALLING, "Calling..");
+            event.detail.type = EventType.CALLING;
+            event.detail.phoneEvent = 'Calling..';
+            component.dispatchEvent(event);
         }
     });
 }
@@ -225,46 +242,53 @@ window.answer = function () {
 window.bindSessionEvents = function (session) {
 
     session.on('getusermediafailed', function () {
-        component.$server.auEvent(EventType.USER_MEDIA_FAILED, "No premission to access camera or microphone");
+        event.detail.type = EventType.USER_MEDIA_FAILED;
+        event.detail.phoneEvent = 'No permission to access camera or microphone';
+        component.dispatchEvent(event);
     });
 
     session.on('muted', function (e) {
         if (e.audio === true) {
-
-            component.$server.auEvent(EventType.AUDIO_MUTED, "Microphone muted");
+            event.detail.type = EventType.AUDIO_MUTED;
+            event.detail.phoneEvent = 'Microphone muted';
+            component.dispatchEvent(event);
         } else if (e.video === true) {
-
-            component.$server.auEvent(EventType.VIDEO_MUTED, "Camera unmuted");
+            event.detail.type = EventType.VIDEO_MUTED;
+            event.detail.phoneEvent = 'Camera muted';
+            component.dispatchEvent(event);
         }
     });
 
     session.on('unmuted', function (e) {
         if (e.audio === true) {
-
-            component.$server.auEvent(EventType.AUDIO_UN_MUTED, "Microphone unmuted");
+            event.detail.type = EventType.AUDIO_UN_MUTED;
+            event.detail.phoneEvent = 'Microphone unmuted';
+            component.dispatchEvent(event);
         } else if (e.video === true) {
-
-            component.$server.auEvent(EventType.VIDEO_UN_MUTED, "Camera unmuted");
+            event.detail.type = EventType.VIDEO_UN_MUTED;
+            event.detail.phoneEvent = 'Camera unmuted';
+            component.dispatchEvent(event);
         }
     });
 
     session.on('hold', function (e) {
-
-        component.$server.auEvent(EventType.HOLD, "Local channel hold");
+        event.detail.type = EventType.HOLD;
+        event.detail.phoneEvent = 'Local channel hold';
+        component.dispatchEvent(event);
     });
 
     session.on('unhold', function (e) {
-
-        component.$server.auEvent(EventType.UN_HOLD, "Local channel unhold");
+        event.detail.type = EventType.UN_HOLD;
+        event.detail.phoneEvent = 'Local channel unhold';
+        component.dispatchEvent(event);
     });
 
 
     session.on('confirmed', function (e) {
-
-
         if (session.remote_identity.uri.user !== inoutNumber) {
-            component.$server.auEvent(EventType.ANSWERED, "Call answered");
-
+            event.detail.type = EventType.ANSWERED;
+            event.detail.phoneEvent = 'Call answered';
+            component.dispatchEvent(event);
         }
     });
 
@@ -292,9 +316,14 @@ window.bindSessionEvents = function (session) {
         stopRingBackTone();
         stopRingTone();
 
-        component.$server.auEvent(EventType.FAILED, "Call failed");
+        event.detail.type = EventType.FAILED;
+        event.detail.phoneEvent = 'Call failed';
+        component.dispatchEvent(event);
+
         setTimeout(function () {
-            component.$server.auEvent(EventType.IDLE, "idle");
+            event.detail.type = EventType.IDLE;
+            event.detail.phoneEvent = 'idle';
+            component.dispatchEvent(event);
         }, 5000);
     });
 
@@ -306,19 +335,23 @@ window.bindSessionEvents = function (session) {
     });
 
     session.on('ended', function (e) {
-
-        component.$server.auEvent(EventType.ENDED, "Call is ended");
+        event.detail.type = EventType.ENDED;
+        event.detail.phoneEvent = 'Call is ended';
+        component.dispatchEvent(event);
 
         setTimeout(function () {
-            component.$server.auEvent(EventType.IDLE, "idle");
+            event.detail.type = EventType.IDLE;
+            event.detail.phoneEvent = 'idle';
+            component.dispatchEvent(event);
         }, 5000);
     });
 
     if (session.direction === "incoming") {
         startRingTone();
         session.on('peerconnection', function (e) {
-
-            component.$server.auEvent(EventType.PEER_CONNECTION, "Call peer connection");
+            event.detail.type = EventType.PEER_CONNECTION;
+            event.detail.phoneEvent = 'Call peer connection';
+            component.dispatchEvent(event);
 
             e.peerconnection.ontrack = () => {
 
@@ -338,8 +371,11 @@ window.bindSessionEvents = function (session) {
     }
     if (session.direction === "outgoing") {
         startRingBackTone();
+
         session.connection.addEventListener('addstream', function (data) {
-                component.$server.auEvent(EventType.ADD_STREAM, "Add stream");
+                event.detail.type = EventType.ADD_STREAM;
+                event.detail.phoneEvent = 'Add stream';
+                component.dispatchEvent(event);
 
                 let remoteAudio = document.getElementById("localAudio");
                 let remoteVideo = document.getElementById("localVideo");
