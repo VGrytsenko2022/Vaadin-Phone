@@ -30,38 +30,38 @@ public class PhoneComponent extends com.vaadin.flow.component.Component {
 
 
     private void setProperty(String webrtcUser, String webrtcPassword, String domain) {
-        UI.getCurrent().getPage().executeJs("setProperty($0,$1,$2,$3,$4)", webrtcUser, webrtcPassword, domain, "wss://" + domain + ":8089/asterisk/ws",this);
+        getElement().executeJs("setProperty($0,$1,$2,$3,$4)", webrtcUser, webrtcPassword, domain, "wss://" + domain + ":8089/asterisk/ws",this);
     }
     public void activate(){
-        UI.getCurrent().getPage().executeJs("configureAndActivate()");
+        getElement().executeJs("configureAndActivate()");
     }
 
     public void answer(){
-        UI.getCurrent().getPage().executeJs("answer()");
+       getElement().executeJs("answer()");
     }
 
     public void endCall(){
-        UI.getCurrent().getPage().executeJs("endCall()");
+       getElement().executeJs("endCall()");
     }
 
     public void muteAudio(){
-        UI.getCurrent().getPage().executeJs("muteAudio()");
+       getElement().executeJs("muteAudio()");
     }
 
     public void muteVideo(){
-        UI.getCurrent().getPage().executeJs("muteVideo()");
+        getElement().executeJs("muteVideo()");
     }
 
     public void localHold(){
-        UI.getCurrent().getPage().executeJs("localHold()");
+       getElement().executeJs("localHold()");
     }
 
     public void callSendDTMF(String symbol) {
-        UI.getCurrent().getPage().executeJs("callSendDTMF($0)", symbol);
+       getElement().executeJs("callSendDTMF($0)", symbol);
     }
 
     public void makeCall(String dialNum) {
-        UI.getCurrent().getPage().executeJs("makeCall($0)", dialNum);
+       getElement().executeJs("makeCall($0)", dialNum);
     }
 
    // @ClientCallable

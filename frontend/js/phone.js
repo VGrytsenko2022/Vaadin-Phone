@@ -53,8 +53,9 @@ function hasGetUserMedia() {
 }
 
 if (!hasGetUserMedia()) {
-    // component.$server.auEvent(EventType.GET_USER_MEDIA, "Get user media is not supported by your browser");
-
+    event.detail.type = EventType.GET_USER_MEDIA;
+    event.detail.phoneEvent = 'Get user media is not supported by your browser';
+    component.dispatchEvent(event);
 }
 
 const event = new CustomEvent('phone', {
