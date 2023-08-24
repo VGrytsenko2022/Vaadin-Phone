@@ -48,7 +48,15 @@ let constraints = {video: true, audio: true}; // Promise to send to peer
 // ========================================
 // Check if browser has audio/video support
 // ========================================
-function hasGetUserMedia() {
+
+const event = new CustomEvent('phone', {
+    detail: {
+        type: EventType.UA_STATE,
+        phoneEvent: 'welcome',
+    }
+});
+
+window.hasGetUserMedia = function () {
     return !!(window.navigator.mediaDevices && window.navigator.mediaDevices.getUserMedia);
 }
 
@@ -58,12 +66,7 @@ if (!hasGetUserMedia()) {
     component.dispatchEvent(event);
 }
 
-const event = new CustomEvent('phone', {
-    detail: {
-        type: EventType.UA_STATE,
-        phoneEvent: 'welcome',
-    }
-});
+
 
 // ======================================
 // Configure and activate your user agent

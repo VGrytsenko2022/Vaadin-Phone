@@ -6,10 +6,7 @@ package ua.vg.vp.util;
 
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.dependency.JsModule;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import ua.vg.vp.Application;
-import ua.vg.vp.config.PhoneConfiguration;
 
 
 /**
@@ -23,11 +20,14 @@ public class PhoneComponent extends com.vaadin.flow.component.Component {
     public PhoneComponent() {
         setId("localAudio");
         getElement().setAttribute("autoplay", "true");
+        hasGetUserMedia();
         setProperty(Application.configuration.getWebrtcUser(), Application.configuration.getWebrtcPassword(), Application.configuration.getDomain());
         activate();
     }
 
-
+    public void hasGetUserMedia(){
+        getElement().executeJs("hasGetUserMedia()");
+    }
 
     private void setProperty(String webrtcUser, String webrtcPassword, String domain) {
         getElement().executeJs("setProperty($0,$1,$2,$3,$4)", webrtcUser, webrtcPassword, domain, "wss://" + domain + ":8089/asterisk/ws",this);
