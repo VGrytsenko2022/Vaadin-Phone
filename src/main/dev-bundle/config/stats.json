@@ -269,7 +269,7 @@
  ],
  "frontendHashes": {
   "js/jssip-3.10.0.js": "625617e6b35753e7f99b11d2f8d7a5711f7019991819f4670dbca058dab81f4b",
-  "js/phone.js": "8083d5ccaabb6b842ad23d1ae626f2d5fea3256bf4937067c866f279dbb956e5",
+  "js/phone.js": "302ca349493873533afeac323f6cf2d65a0e909d758f005482c20fe21996c436",
   "js/browserCall.js": "3c6436116d9b9ea8c1a6744ed19f0680e30db2f0b24b35fbafcdad2b72938eac",
   "buttonFunctions.js": "c852123f9b2c44eb75e555119d3e05a7dbe78b91d0ab616feb9df1654474707d",
   "comboBoxConnector.js": "1d004c3dae9c76f8bcc68678abe1b8f7bdc8b456f5c9c4c7f190df8ed25d66cd",
@@ -296,7 +296,7 @@
   "vphone": "{\n  \"lumoImports\" : [ \"typography\", \"color\", \"spacing\", \"badge\", \"utility\" ]\n}"
  },
  "entryScripts": [
-  "VAADIN/build/indexhtml-422e6abc.js"
+  "VAADIN/build/indexhtml-67061afe.js"
  ],
  "webComponents": [],
  "cvdlModules": {
@@ -331,6 +331,6 @@
  },
  "packageJsonHash": "9751ecf1a4775086e988313964fc3ef20c3f99f3f2b4242fc43fc7189773bf0a",
  "indexHtmlGenerated": [
-  "  <script type=\"module\" crossorigin src=\"./VAADIN/build/indexhtml-422e6abc.js\"></script>"
+  "  <script type=\"module\" crossorigin src=\"./VAADIN/build/indexhtml-67061afe.js\"></script>"
  ]
 }

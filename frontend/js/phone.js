@@ -57,16 +57,19 @@ const event = new CustomEvent('phone', {
 });
 
 window.hasGetUserMedia = function () {
-    return !!(window.navigator.mediaDevices && window.navigator.mediaDevices.getUserMedia);
+    constraints = {
+        audio: 'DEFAULT_AUDIO_CONSTRAINTS',
+        video: 'DEFAULT_VIDEO_CONSTRAINTS'
+    }
+    try {
+        !!(window.navigator.mediaDevices && window.navigator.mediaDevices.getUserMedia(constraints));
+    } catch (error) {
+        event.detail.type = EventType.GET_USER_MEDIA;
+        event.detail.phoneEvent = error;
+        component.dispatchEvent(event);
+
+    }
 }
-
-if (!hasGetUserMedia()) {
-    event.detail.type = EventType.GET_USER_MEDIA;
-    event.detail.phoneEvent = 'Get user media is not supported by your browser';
-    component.dispatchEvent(event);
-}
-
-
 
 // ======================================
 // Configure and activate your user agent

@@ -7,6 +7,8 @@ import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.html.H6;
 import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -362,17 +364,25 @@ public class PhoneView extends Composite<VerticalLayout> {
                 buttonEndCall.setText("<EC>");
                 buttonEndCall.setTooltipText("End the call");
 
+            } else if (changeEvent.getEventType() == EventType.GET_USER_MEDIA) {
+                showNotification(changeEvent.getEventValue());
             }
         });
     }
-private void initSoundComponents(){
-    RingToneComponent ringTone = new RingToneComponent();
-    getContent().add(ringTone);
-    RingBackToneComponent ringBackTone = new RingBackToneComponent();
-    getContent().add(ringBackTone);
-    DtmfToneComponent dtmfTone = new DtmfToneComponent();
-    getContent().add(dtmfTone);
-}
+
+
+    private void showNotification(String changeEvent) {
+        Notification.show(changeEvent, 5000, Notification.Position.TOP_STRETCH).addThemeVariants(NotificationVariant.LUMO_ERROR);
+    }
+
+    private void initSoundComponents() {
+        RingToneComponent ringTone = new RingToneComponent();
+        getContent().add(ringTone);
+        RingBackToneComponent ringBackTone = new RingBackToneComponent();
+        getContent().add(ringBackTone);
+        DtmfToneComponent dtmfTone = new DtmfToneComponent();
+        getContent().add(dtmfTone);
+    }
 
 
 }
